@@ -1,0 +1,8 @@
+{
+  "serverUrl": "http://localhost:8000",
+  "footer": "备案信息",
+  "footerUrl": "http://beian.miit.gov.cn",
+  "title": "angular 模板",
+  "desc": "angular 模板",
+  "logoUrl": "assets/logo.png"
+}

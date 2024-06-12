@@ -1,0 +1,63 @@
+<nz-card [nzTitle]="formConfig.title" *ngIf="formConfig.fields.length">
+  <form nz-form [formGroup]="searchForm">
+    <div nz-flex [nzVertical]="true" nzAlign="end" nzGap="1rem">
+      <div nz-flex nzWrap="wrap" style="width: 100%">
+        @for (formControlConfig of formConfig.fields; track formControlConfig;)
+        {
+        <nz-form-item
+          style="flex: 0 1 33%; padding-left: 1rem; padding-right: 1rem"
+          [hidden]="$index > initialCount - 1 && isCollapse"
+        >
+          <nz-form-label>{{ formControlConfig.name }}</nz-form-label>
+          <nz-form-control>
+            <ng-container [ngSwitch]="formControlConfig.type">
+              <nz-date-picker
+                *ngSwitchCase="'date'"
+                [formControlName]="formControlConfig.controlName"
+                [nzPlaceHolder]="
+                  formControlConfig.placeholder || formControlConfig.name
+                "
+              ></nz-date-picker>
+              <nz-range-picker
+                *ngSwitchCase="'rangeDate'"
+                [formControlName]="formControlConfig.controlName"
+              ></nz-range-picker>
+              <nz-select
+                *ngSwitchCase="'select'"
+                [formControlName]="formControlConfig.controlName"
+                [nzOptions]="formControlConfig.optionList!"
+                [nzPlaceHolder]="
+                  formControlConfig.placeholder || formControlConfig.name
+                "
+                nzShowSearch
+                nzAllowClear
+              >
+              </nz-select>
+              <input
+                *ngSwitchDefault
+                nz-input
+                [formControlName]="formControlConfig.controlName"
+                [placeholder]="
+                  formControlConfig.placeholder || formControlConfig.name
+                "
+              />
+            </ng-container>
+          </nz-form-control>
+        </nz-form-item>
+        }
+      </div>
+      <div>
+        <button nz-button (click)="reset()">重置</button>
+        <nz-divider nzType="vertical"></nz-divider>
+        <button nz-button [nzType]="'primary'" (click)="search()">搜索</button>
+        @if(formConfig.fields.length > initialCount) {
+        <nz-divider nzType="vertical"></nz-divider>
+        <a class="collapse" (click)="isCollapse = !isCollapse">
+          {{ isCollapse ? "展开" : "折叠" }}
+          <span nz-icon [nzType]="isCollapse ? 'down' : 'up'"></span>
+        </a>
+        }
+      </div>
+    </div>
+  </form>
+</nz-card>

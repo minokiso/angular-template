@@ -1,0 +1,77 @@
+<div class="login-form-wrap">
+  <nz-tabset nzSize="large">
+    <nz-tab nzTitle="管理员登录"></nz-tab>
+  </nz-tabset>
+  <form class="login-form" nz-form [formGroup]="loginForm" (ngSubmit)="login()">
+    <nz-form-item>
+      <nz-form-control nzErrorTip="账号">
+        <nz-input-group nzPrefixIcon="user" [nzSize]="'large'">
+          <input
+            type="text"
+            formControlName="username"
+            nz-input
+            placeholder="用户名"
+            [placeholder]="'账号'"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="密码">
+        <nz-input-group nzPrefixIcon="lock" [nzSize]="'large'">
+          <input
+            type="password"
+            autocomplete="on"
+            formControlName="password"
+            nz-input
+            placeholder="密码"
+            [placeholder]="'密码'"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="验证码">
+        <div nz-flex nzGap="20px">
+          <nz-input-group nzPrefixIcon="lock" [nzSize]="'large'">
+            <input
+              nz-input
+              formControlName="captcha"
+              id="captcha"
+              placeholder="验证码"
+            />
+          </nz-input-group>
+          <div
+            style="
+              width: 30%;
+              text-align: center;
+              background-color: #fff;
+              cursor: pointer;
+            "
+            title="点击重新获取验证码"
+            (click)="captcha$ = getCaptcha()"
+          >
+            <img
+              *ngIf="captcha$ | async as url; else loading"
+              src="{{ url }}"
+              alt="验证码加载失败"
+              style="height: 100%; width: 100%"
+            />
+            <ng-template #loading>
+              <nz-spin nzSimple></nz-spin>
+            </ng-template>
+          </div>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <button
+      class="login-form-button login-form-margin"
+      nz-button
+      nzSize="large"
+      [nzType]="'primary'"
+    >
+      登 录
+    </button>
+  </form>
+  <!-- </nz-card> -->
+</div>

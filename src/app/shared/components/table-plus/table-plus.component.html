@@ -1,0 +1,69 @@
+<nz-table
+  nzBordered
+  #table
+  [nzData]="dataList"
+  [nzScroll]="scroll"
+  [nzLoading]="loading"
+  [nzFrontPagination]="false"
+>
+  <thead>
+    <tr>
+      <th
+        [nzChecked]="allChecked"
+        nzWidth="60px"
+        [nzIndeterminate]="indeterminate"
+        (nzCheckedChange)="onAllChecked($event)"
+      ></th>
+      @for (head of headConfig.heads; track head) { @if(headConfig.resizable &&
+      head.width) {
+      <th
+        nz-resizable
+        nzBounds="window"
+        nzPreview
+        [nzWidth]="head.width"
+        [nzMaxWidth]="512"
+        [nzMinWidth]="60"
+        (nzResizeEnd)="onResize($event, head.title)"
+        [nzRight]="head.right || false"
+        [nzLeft]="head.left || false"
+      >
+        {{ head.title }}
+        <nz-resize-handle nzDirection="right"></nz-resize-handle>
+      </th>
+      }@else {
+      <th [nzRight]="head.right || false" [nzLeft]="head.left || false">
+        {{ head.title }}
+      </th>
+      } }
+      <th nzRight>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of table.data; let i = index">
+      <th
+        [nzChecked]="allChecked"
+        nzWidth="60px"
+        [nzIndeterminate]="indeterminate"
+        (nzCheckedChange)="onAllChecked($event)"
+      ></th>
+      @for(head of headConfig.heads; track $index) {
+      <td>{{ getData(data, head.keys) }}</td>
+      } @if(operationConfig){
+      <td nzRight>
+        @for(button of operationConfig(data); track $index) {
+        <button
+          [disabled]="button.disabled"
+          nz-button
+          [nzType]="button.type || 'default'"
+          [nzDanger]="button.danger || false"
+          (click)="button?.onClick(data)"
+        >
+          {{ button.label }}
+        </button>
+        <nz-divider nzType="vertical" *ngIf="!$last"></nz-divider>
+        }
+      </td>
+      }
+    </tr>
+  </tbody>
+</nz-table>

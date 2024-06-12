@@ -1,0 +1,36 @@
+<nz-card class="table">
+  <!-- <div style="background-color: red; height: 100%">haha</div> -->
+  <nz-table
+    #logTable
+    [nzData]="logs"
+    [nzScroll]="{ x: '600px', y: '65vh' }"
+    style="height: 100%"
+    [nzFrontPagination]="false"
+    [(nzPageIndex)]="page_index"
+    [nzPageSize]="5"
+    [nzTotal]="logCount"
+    (nzPageIndexChange)="getLogs()"
+    [nzLoading]="initLoading"
+  >
+    <thead>
+      <tr>
+        <th>账号</th>
+        <th>用户名</th>
+        <th>行为</th>
+        <th>时间</th>
+        <th>请求接口</th>
+        <th>IP地址</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let log of logTable.data">
+        <td>{{ log.username }}</td>
+        <td>{{ log.user_name }}</td>
+        <td>{{ log.name }}</td>
+        <td>{{ log.time | date : "yyyy-MM-dd HH:mm:ss" }}</td>
+        <td>{{ log.url }}</td>
+        <td>{{ log.ip }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

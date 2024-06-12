@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="content-layout">
+    <div class="lang">
+      <!-- <i nz-icon nzTheme="outline" nzType="font-size"></i> -->
+    </div>
+    <div class="head">
+      <img class="logo" alt="" [src]="env.environment.logoUrl" />
+      <span class="title">{{ env.environment.title }}</span>
+    </div>
+    <div class="desc">{{ env.environment.desc }}</div>
+  </div>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</div>
