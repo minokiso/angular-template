@@ -6,81 +6,24 @@
         env.environment.title
       }}</span>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline">
-      <li nz-menu-item nzMatchRouter [routerLink]="['/shell', 'dashboard']">
-        <span nz-icon nzType="bar-chart" nzTheme="outline"></span>
-        <span>数据报表</span>
-      </li>
-      <li nz-submenu nzTitle="用户管理" nzIcon="appstore" nzOpen>
-        <ul>
-          <li
-            nz-menu-item
-            nzMatchRouter
-            [routerLink]="['/shell', 'user', 'user']"
-          >
-            <span nz-icon nzType="user" nzTheme="outline"></span>
-            <span>用户管理</span>
-          </li>
-          <li
-            nz-menu-item
-            nzMatchRouter
-            [routerLink]="['/shell', 'user', 'landlord']"
-          >
-            <span nz-icon nzType="home" nzTheme="outline"></span>
-            <span>房东管理</span>
-          </li>
-          <li
-            nz-menu-item
-            nzMatchRouter
-            [routerLink]="['/shell', 'user', 'inviter']"
-          >
-            <span nz-icon nzType="link" nzTheme="outline"></span>
-            <span>介绍人管理</span>
-          </li>
-          <li
-            nz-menu-item
-            nzMatchRouter
-            [routerLink]="['/shell', 'user', 'worker']"
-          >
-            <span nz-icon nzType="tool" nzTheme="outline"></span>
-            <span>装维管理</span>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzTitle="套餐管理" nzIcon="shopping" nzOpen>
-        <ul>
-          <li nz-menu-item nzMatchRouter [routerLink]="['/shell', 'combo']">
-            <span nz-icon nzType="shopping" nzTheme="outline"></span>
-            <span>套餐管理</span>
-          </li>
-          <li
-            nz-menu-item
-            nzMatchRouter
-            [routerLink]="['/shell', 'combo-group']"
-          >
-            <span nz-icon nzType="group" nzTheme="outline"></span>
-            <span>套餐组管理</span>
-          </li>
-          <!-- <li
-            nz-menu-item
-            nzMatchRouter
-            [routerLink]="['/shell', 'combo-group-bind']"
-          >
-            <span nz-icon nzType="node-index" nzTheme="outline"></span>
-            <span>套餐组绑定</span>
-          </li> -->
-        </ul>
-      </li>
-      <!-- <li nz-menu-item nzMatchRouter [routerLink]="['/shell', 'combo']">
-        <span nz-icon nzType="shopping-cart" nzTheme="outline"></span>
-        <span>套餐管理</span>
-      </li> -->
-      <li nz-menu-item nzMatchRouter [routerLink]="['/shell', 'advertisement']">
-        <span nz-icon nzType="eye" nzTheme="outline"></span>
-        <span>广告管理</span>
+    <ul
+      nz-menu
+      nzTheme="dark"
+      nzMode="inline"
+      [nzInlineCollapsed]="isCollapsed"
+      *ngIf="role"
+    >
+      <li
+        nz-menu-item
+        nzMatchRouter
+        *ngFor="let menu of menus[role]"
+        [routerLink]="menu.url"
+      >
+        <span nz-icon [nzType]="menu.icon"> </span>
+        <span>{{ menu.name }}</span>
       </li>
       <li nz-menu-item (click)="logout()">
-        <span nz-icon nzType="logout" nzTheme="outline"></span>
+        <span nz-icon nzType="logout"></span>
         <span>退出登录</span>
       </li>
     </ul>
